@@ -22,6 +22,39 @@ public class AopUtilsTest {
     @Mock
     private StudentDao studentDao;
 
+    @Test(expected = NullPointerException.class)
+    public void should_throw_exception_when_given_obj_is_null() throws Exception {
+        //given
+
+        //when
+        AopUtils.<StudentDao>proxy(null, null);
+
+        //then
+
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void should_throw_exception_when_given_invoke_handler_is_null() throws Exception {
+        //given
+
+        //when
+        AopUtils.<StudentDao>proxy(studentDao, null);
+
+        //then
+
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void should_throw_exception_when_given_proxy_object_is_not_implements_a_interface() throws Exception {
+        //given
+
+        //when
+        AopUtils.proxy(new Object(), exception());
+
+        //then
+
+    }
+
     @Test
     public void should_get_proxy_instance_and_get_right_result() throws Exception {
         //given

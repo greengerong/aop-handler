@@ -17,8 +17,13 @@ import static com.google.common.base.Preconditions.checkState;
  * *
  * ****************************************
  */
-public class AopUtils {
-    static <T> T proxy(final Object obj, final ProxyInvokeHandler invokeHandler, Class<?>... interfaces) {
+public final class AopUtils {
+    private AopUtils() {
+    }
+
+    public static <T> T proxy(final Object obj, final ProxyInvokeHandler invokeHandler, Class<?>... interfaces) {
+        checkNotNull(obj, "Proxy object should be not null.");
+        checkNotNull(invokeHandler, "InvokeHandler should be not null.");
         checkState(interfaces.length > 0, "Should be have at less one interfaces.");
         return (T) Proxy.newProxyInstance(obj.getClass().getClassLoader(), interfaces, new InvocationHandler() {
 
@@ -29,8 +34,7 @@ public class AopUtils {
         });
     }
 
-    static <T> T proxy(final Object obj, ProxyInvokeHandler invokeHandler) {
-        checkNotNull(obj, "Should be not null.");
+    public static <T> T proxy(final Object obj, ProxyInvokeHandler invokeHandler) {
         return proxy(obj, invokeHandler, obj.getClass().getInterfaces());
     }
 
