@@ -1,7 +1,7 @@
 aop-handler
 ===========
 
-Use java Jdk 7.0 Proxy to do the AOP work for your java bean. This is use for your project which without spring or
+Use java Jdk 1.7 Proxy to do the AOP work for your java bean. This is use for your project which without spring or
 
 another IOC/AOP framework(like OSGI/ODL).
 
