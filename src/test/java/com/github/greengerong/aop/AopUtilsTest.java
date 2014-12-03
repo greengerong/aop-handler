@@ -1,5 +1,6 @@
 package com.github.greengerong.aop;
 
+import com.github.greengerong.aop.handler.ExceptionInvokeHandler;
 import com.github.greengerong.stub.StudentDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.slf4j.Logger;
 
-import static com.github.greengerong.aop.ExceptionInvokeHandler.exception;
+import static com.github.greengerong.aop.handler.ExceptionInvokeHandler.exception;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.*;
@@ -60,7 +61,6 @@ public class AopUtilsTest {
         //given
         final String result = "hello joe";
         when(studentDao.say("joe")).thenReturn(result);
-
         //when
         final StudentDao proxyInstance = AopUtils.proxy(studentDao, exception());
 
@@ -96,9 +96,9 @@ public class AopUtilsTest {
         AopUtils.<StudentDao>proxy(studentDao, getMockedLoggerExceptionInvokeHandler()).say("joe");
 
         //then
-        verify(logger).info(contains("Invoking method 'public abstract java.lang.String com.github.greengerong.stub." +
+        verify(logger).debug(contains("Invoking method 'public abstract java.lang.String com.github.greengerong.stub." +
                 "StudentDao.say(java.lang.String)' with: [(joe)]"));
-        verify(logger).info(contains("Invoked method 'public abstract java.lang.String com.github.greengerong.stub." +
+        verify(logger).debug(contains("Invoked method 'public abstract java.lang.String com.github.greengerong.stub." +
                 "StudentDao.say(java.lang.String)' return: [hello joe]"));
     }
 

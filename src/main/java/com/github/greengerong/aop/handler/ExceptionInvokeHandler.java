@@ -1,5 +1,8 @@
-package com.github.greengerong.aop;
+package com.github.greengerong.aop.handler;
 
+import com.github.greengerong.aop.InvokeHandlerBase;
+import com.github.greengerong.aop.ProxyArguments;
+import com.github.greengerong.aop.ProxyInvokeHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,9 +39,9 @@ public class ExceptionInvokeHandler extends InvokeHandlerBase {
     public Object invoke(ProxyArguments proxyArguments) throws Exception {
         final String methodName = getMethodName(proxyArguments);
         try {
-            getLogger().info(String.format("Invoking method '%s' with: [%s]", methodName, getArguments(proxyArguments)));
+            getLogger().debug(String.format("Invoking method '%s' with: [%s]", methodName, getArguments(proxyArguments)));
             final Object result = innerInvoke(proxyArguments);
-            getLogger().info(String.format("Invoked method '%s' return: [%s]", methodName, result));
+            getLogger().debug(String.format("Invoked method '%s' return: [%s]", methodName, result));
             return result;
         } catch (Exception ex) {
             getLogger().error(String.format("Invoke method '%s' error with: %s", methodName, ex.getCause()), ex);

@@ -16,4 +16,4 @@ Task:
 
 - [x] Exception handler.
 - [ ] Authentication
-- [ ] Feature toggle.
+- [x] Feature toggle.

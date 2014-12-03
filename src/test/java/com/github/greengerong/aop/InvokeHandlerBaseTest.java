@@ -17,33 +17,35 @@ public class InvokeHandlerBaseTest {
     @Mock
     private ProxyInvokeHandler invokeHandler;
 
-    private InvokeHandlerBase getInvokeHandlerBase(ProxyInvokeHandler invokeHandler) {
-        return new InvokeHandlerBase(invokeHandler) {
-            @Override
-            public Object invoke(ProxyArguments proxyArguments) throws Exception {
-                return null;
-            }
-        };
-    }
-
     @Test
     public void should_invoke_the_method_form_proxy_arguments_when_no_more_invoke_handler() throws Exception {
         //given
 
         //when
-        getInvokeHandlerBase(null).innerInvoke(proxyArguments);
+        new InvokeHandlerBase() {
+            @Override
+            public Object invoke(ProxyArguments proxyArguments1) throws Exception {
+                return null;
+            }
+        }.innerInvoke(proxyArguments);
         //then
         verify(proxyArguments).invoke();
         verify(invokeHandler, never()).invoke(proxyArguments);
 
     }
 
+
     @Test
     public void should_invoke_the_method_form_invoke_handler_when_given_a_invoke_handler() throws Exception {
         //given
 
         //when
-        getInvokeHandlerBase(invokeHandler).innerInvoke(proxyArguments);
+        new InvokeHandlerBase(invokeHandler) {
+            @Override
+            public Object invoke(ProxyArguments proxyArguments1) throws Exception {
+                return null;
+            }
+        }.innerInvoke(proxyArguments);
         //then
         verify(proxyArguments, never()).invoke();
         verify(invokeHandler).invoke(proxyArguments);

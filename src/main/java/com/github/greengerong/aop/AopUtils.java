@@ -38,7 +38,7 @@ public final class AopUtils {
         return proxy(obj, invokeHandler, obj.getClass().getInterfaces());
     }
 
-    private static class ProxyArgumentsImpl implements ProxyArguments {
+    static class ProxyArgumentsImpl implements ProxyArguments {
 
         private final Method method;
         private final Object proxyObj;
